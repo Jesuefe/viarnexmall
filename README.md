@@ -83,6 +83,22 @@ you want to test signup without clicking a confirmation email every
 time, turn it off in Supabase dashboard → Authentication → Providers →
 Email → "Confirm email".
 
+## Supplier product upload
+
+Once a supplier signs up (or an existing buyer account gets promoted to
+supplier — that'd be an admin action, not built yet), they can go to
+`/portal/products` to see their listings and `/portal/products/new` to
+add one. Submitting creates the product with `approval_status: pending`
+— it won't show up on the public storefront until an admin approves it
+(not built yet either — that's the natural next piece).
+
+The form handles pricing tiers and variants as dynamic add/remove rows,
+and writes everything through a single server action
+(`src/app/(supplier)/actions.ts`) so the product, its tiers, and its
+variants land together. Images are a pasted URL for now, since Bunny.net
+upload isn't wired up — swap that input for a real upload widget once
+storage is connected.
+
 ## What's stubbed vs. real
 
 - **Real**: landing page, design tokens, currency/pricing calculation
@@ -91,9 +107,10 @@ Email → "Confirm email".
   (`supabase/migrations/`), product listing page (`/products`) and
   product detail page (`/products/[id]`) wired to live Supabase data,
   auth (`/signup`, `/login`, `/dashboard`), responsive layout for
-  mobile and desktop.
+  mobile and desktop, supplier product upload (`/portal/products`,
+  `/portal/products/new`).
 - **Stubbed (folders only, no pages yet)**: cart/checkout, supplier
-  product upload + wallet, admin verification queue.
+  orders + wallet, admin verification queue.
 - **Not started**: chat system + contact-info filtering, quotations UI,
   search, notifications, Bunny.net upload wiring.
 

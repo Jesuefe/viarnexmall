@@ -37,10 +37,16 @@ export default async function DashboardPage() {
           <div className="bg-market-card rounded-md p-4 mt-2">
             <p className="text-market-text text-sm font-medium">Supplier tools</p>
             <p className="text-market-text-secondary text-xs mt-1">
-              Product upload, orders, and wallet are coming next — your
-              supplier record was created automatically and is pending
-              verification.
+              Your supplier record was created automatically and is
+              pending verification. You can list products in the
+              meantime — they&apos;ll go live once approved.
             </p>
+            <a
+              href="/portal/products"
+              className="inline-block mt-3 bg-market-orange text-white text-xs font-medium rounded-md px-3 py-2"
+            >
+              Manage products
+            </a>
           </div>
         )}
 

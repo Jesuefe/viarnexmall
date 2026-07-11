@@ -7,7 +7,7 @@ export function FlashSaleStrip() {
   return (
     <Link
       href="/products"
-      className="mx-2 mt-2 bg-white rounded-md px-3 py-2.5 flex items-center justify-between"
+      className="mx-2 md:mx-6 mt-2 bg-white rounded-md px-3 md:px-6 py-2.5 flex items-center justify-between"
     >
       <div className="flex items-center gap-1.5">
         <Zap size={16} className="text-market-price" fill="currentColor" />

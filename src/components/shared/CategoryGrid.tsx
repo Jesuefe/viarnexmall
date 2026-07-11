@@ -22,7 +22,7 @@ const categories = [
 
 export function CategoryGrid() {
   return (
-    <div className="grid grid-cols-4 gap-y-3 px-2 py-3 bg-market-card mx-2 mt-2 rounded-md">
+    <div className="grid grid-cols-4 md:grid-cols-8 gap-y-3 px-2 md:px-6 py-3 bg-market-card mx-2 md:mx-6 mt-2 rounded-md">
       {categories.map((cat) => {
         const Icon = cat.icon;
         return (

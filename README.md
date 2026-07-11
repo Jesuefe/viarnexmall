@@ -65,21 +65,37 @@ Supabase clients live in `src/lib/supabase/client.ts` (browser, "use
 client" components) and `src/lib/supabase/server.ts` (Server Components,
 Route Handlers).
 
+## Auth
+
+Email/password auth via Supabase, with `/signup` (role toggle: buyer or
+supplier) and `/login`. After running `0001_init.sql`, also run
+`supabase/migrations/0002_auth_trigger.sql` — it auto-creates a
+`profiles` row (and a `suppliers` row if the role is supplier) the
+moment someone signs up, reading the role out of the signup metadata.
+
+`src/middleware.ts` keeps the Supabase session refreshed on every
+request — required for server components to see an up-to-date auth
+state. `/dashboard` (the "Mine" tab) is the first protected route;
+it redirects to `/login` if there's no session.
+
+Supabase's email confirmation is on by default for new projects — if
+you want to test signup without clicking a confirmation email every
+time, turn it off in Supabase dashboard → Authentication → Providers →
+Email → "Confirm email".
+
 ## What's stubbed vs. real
 
 - **Real**: landing page, design tokens, currency/pricing calculation
   (`lib/pricing.ts`), full domain type model (`types/index.ts`), route
   structure for all three portals, Supabase schema + RLS
-  (`supabase/migrations/0001_init.sql`), product listing page
-  (`/products`) and product detail page (`/products/[id]`) wired to
-  live Supabase data via `lib/products.ts`.
+  (`supabase/migrations/`), product listing page (`/products`) and
+  product detail page (`/products/[id]`) wired to live Supabase data,
+  auth (`/signup`, `/login`, `/dashboard`), responsive layout for
+  mobile and desktop.
 - **Stubbed (folders only, no pages yet)**: cart/checkout, supplier
-  product upload + wallet, admin verification queue. These map directly
-  to the "Product Structure", "Supplier Wallet", and "Admin Dashboard"
-  sections of the master spec — build them next, reusing the types and
-  data-access pattern already in place in `lib/products.ts`.
-- **Not started**: auth/RBAC, chat system + contact-info filtering,
-  quotations UI, search, notifications, Bunny.net upload wiring.
+  product upload + wallet, admin verification queue.
+- **Not started**: chat system + contact-info filtering, quotations UI,
+  search, notifications, Bunny.net upload wiring.
 
 ## Seeing real products locally
 

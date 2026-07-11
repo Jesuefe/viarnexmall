@@ -26,7 +26,7 @@ export interface ProductDetail extends ProductListItem {
 }
 
 async function getActiveRates(): Promise<RateConfig> {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data } = await supabase
     .from("platform_config")
     .select("*")
@@ -49,7 +49,7 @@ async function getActiveRates(): Promise<RateConfig> {
 const PLACEHOLDER_SHIPPING_NAIRA = 15000;
 
 export async function listApprovedProducts(): Promise<ProductListItem[]> {
-  const supabase = createClient();
+  const supabase = await createClient();
   const rates = await getActiveRates();
 
   const { data, error } = await supabase
@@ -84,7 +84,7 @@ export async function listApprovedProducts(): Promise<ProductListItem[]> {
 }
 
 export async function getProductById(id: string): Promise<ProductDetail | null> {
-  const supabase = createClient();
+  const supabase = await createClient();
   const rates = await getActiveRates();
 
   const { data, error } = await supabase

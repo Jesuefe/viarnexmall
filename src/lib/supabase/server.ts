@@ -4,8 +4,9 @@ import { cookies } from "next/headers";
 // Server-side Supabase instance — use inside Server Components, Route
 // Handlers, and Server Actions. Reads/writes the auth cookie so
 // `auth.uid()` resolves correctly for RLS policies on the server.
-export function createClient() {
-  const cookieStore = cookies();
+// Next.js 15 made cookies() async, so this function is async too.
+export async function createClient() {
+  const cookieStore = await cookies();
 
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
